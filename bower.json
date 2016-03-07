@@ -1,0 +1,32 @@
+{
+  "name": "laughable",
+  "authors": [
+    "Chad Bartels <chad@entrision.com>"
+  ],
+  "description": "Podcast mobile page",
+  "main": "index.js",
+  "moduleType": [
+    "es6"
+  ],
+  "keywords": [
+    "laughable",
+    "ios",
+    "podcast"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "bootstrap": "^3.3.6",
+    "bootstrap-sass": "^3.3.6"
+  },
+  "dependencies": {
+    "moment": "^2.12.0"
+  }
+}

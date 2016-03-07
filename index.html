@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <link href='https://fonts.googleapis.com/css?family=Pathway+Gothic+One' rel='stylesheet' type='text/css'>
+    <link href="css/app.css" rel="stylesheet">
+</head>
+
+<body>
+  <!--[if lt IE 7]>
+    <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+  <![endif]-->
+  <div class="container">
+    <div class="row">
+      <header class="header">
+        <div class="logo">Laughable</div>
+        <div class="podcast-image text-center"><img src="http://placehold.it/280x260" /></div>
+        <a class="app-store hidden-sm hidden-xs pull-right"></a>
+      </header>
+    </div>
+
+    <main role="main" class="main text-center">
+      <div class="track center-block">
+        <p class="track__name center-block">GARY GULMAN - MELTDOWN AT TRADER JOE’S</p>
+        <div class="track__player">
+          <div class="track__metadata">
+            <span class="track__current"></span>
+            <input class="track__seek" type="range" id="seek" value="0" max=""/>
+            <span class="track__duration"></span>
+          </div>
+          <a class="track__back" id="back" href="" title="">Back</a>
+          <a class="track__play track__play--visible" id="play" href="" title="">Play</a>       
+          <a class="track__pause" id="pause" href="" title="">Pause</a>
+          <a class="track__forward" id="forward" href="" title="">Forward</a>    
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer text-center">
+      <div class="social">
+        <div class="social__learn-more text-center">
+          <span class="social__line social__line--before"></span>
+          Learn more about gary gulman
+          <span class="social__line social__line--after"></span>
+        </div>
+        <a class="social__link social__link--facebook">Facebook</a>
+        <a class="social__link social__link--twitter">Twitter</a>
+        <a class="social__link social__link--instagram">Instagram</a>
+        <a class="social__link social__link--website">Laughable</a>
+      </div>
+      <a class="app-store visible-xs visible-sm"></a>
+    </footer>
+  </div>
+
+  <script src="scripts/jquery/jquery.min.js"></script>
+  <script src="scripts/bootstrap-sass/bootstrap.min.js"></script>
+  <script src="scripts/moment/moment.min.js"></script>
+  <script src="scripts/html5slider/html5slider.js"></script>
+  <script>
+    $(function() {
+      var audioTrack = new Audio('/audio/241 Episode @241_ What Makes a Great Developer with Phil Spitler.mp3'),
+          play = $('#play'),
+          pause = $('#pause'),
+          back = $('#back'),
+          forward = $('#forward'),
+          duration = audioTrack.duration;
+
+      audioTrack.preload = true;
+
+      $('.track__current').text(moment.utc(audioTrack.currentTime).format("HH:mm:ss"));
+
+      $(audioTrack).on('loadedmetadata', function() {
+        var ms = audioTrack.duration * 1000;
+        $('.track__duration').text(moment.utc(ms).format("HH:mm:ss"));
+      });
+
+      $('#seek').on('change', function() {
+        audioTrack.currentTime = $(this).val();
+        var ms = audioTrack.currentTime * 1000;
+        $('.track__current').text(moment.utc(ms).format("HH:mm:ss"));
+        $(this).attr("max", audioTrack.duration);
+      });
+
+      $('#forward').on('click', function(e) {
+        e.preventDefault();
+
+        audioTrack.currentTime = $('#seek').val();
+        var newTime = audioTrack.currentTime + 15;
+        var ms = newTime * 1000;
+
+        $('#seek').val(newTime);
+        $('.track__current').text(moment.utc(ms).format("HH:mm:ss"));
+        $('#seek').attr("max", audioTrack.duration);
+      });
+
+      $('#back').on('click', function(e) {
+        e.preventDefault();
+
+        audioTrack.currentTime = $('#seek').val();
+        var newTime = audioTrack.currentTime - 15;
+        var ms = newTime * 1000;
+
+        $('#seek').val(newTime);
+        $('.track__current').text(moment.utc(ms).format("HH:mm:ss"));
+        $('#seek').attr("max", audioTrack.duration);
+      });
+
+      play.on('click', function(e) {
+        e.preventDefault();
+
+        play.toggleClass('track__play--visible');
+        pause.toggleClass('track__pause--visible');
+
+        audioTrack.play();
+      });
+
+      pause.on('click', function(e) {
+        e.preventDefault();
+
+        play.toggleClass('track__play--visible');
+        pause.toggleClass('track__pause--visible');
+        
+        audioTrack.pause();
+      });
+    });
+  </script>
+</body>
+
+</html>
